@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    List<User> findByDomain_IdAndMobile(Long domain_id, String mobile);
+    User findByDomain_IdAndMobile(Long domain_id, String mobile);
 
     List<User> findByDomain_Id(Long domainId);
 }

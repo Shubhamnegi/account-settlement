@@ -20,7 +20,7 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public List<User> findUsersByDomainAndMobile(Long domainId, String mobile) {
+    public User findUserByDomainAndMobile(Long domainId, String mobile) {
         return userRepository.findByDomain_IdAndMobile(domainId, mobile);
     }
 
