@@ -3,9 +3,11 @@ package com.settlement.demo.service;
 import com.settlement.demo.model.DomainPaymentVendor;
 import com.settlement.demo.repository.DomainPaymentVendorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class DomainPaymentVendorService {
 
     @Autowired

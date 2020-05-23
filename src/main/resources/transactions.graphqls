@@ -1,0 +1,68 @@
+type Admin {
+    id: ID!,
+    email: String,
+    password: String,
+    mobile: String,
+    isActive: Boolean,
+    isVerified: Boolean,
+    createdAt: String,
+    updatedAt: String
+}
+
+type Domain {
+    id: ID!,
+    name: String,
+    isActive: Boolean,
+    admin: Admin,
+    createdAt: String,
+    updatedAt: String
+}
+
+type TransactionDocument {
+    id: ID!,
+    imagePath: String,
+    isDeleted: Boolean,
+    transaction: Transaction,
+    createdAt: String,
+    updatedAt: String
+}
+
+type User {
+    id: ID!,
+    name: String,
+    mobile: String,
+    domain: Domain,
+    createdAt: String,
+    updatedAt: String
+}
+
+type Transaction {
+    id: ID!,
+    domain: Domain,
+    amount: Float,
+    flowType: String,
+    closingBalance: Float,
+    paymentId: String,
+    transactionDocumentList: [TransactionDocument]
+    comments: String,
+    user: User
+    createdAt: String,
+    updatedAt: String
+}
+
+type Query {
+#    domain(id: ID): Domain
+#    domains(limit: Int, offset:Int): [Domain]
+
+    user(domainId: ID!, mobile: String!):User
+#    userByDomain(domainId:ID!): [User]
+
+#    transaction(id: ID!): Transaction
+#    transactionsByDomain(id:ID!): [Transaction]
+#    transactionByDomainAndUser(domainId:Int!, userId:ID!): [Transaction]
+}
+
+type Mutation {
+#    createDomain(adminId:Int!, name:String!, isActive:Boolean!):Domain
+    createUser(name:String, mobile:String, domainId:ID):User
+}
