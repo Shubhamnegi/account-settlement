@@ -7,30 +7,28 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import java.io.Serializable;
 import java.util.Date;
 
+
 @Entity
-@Table(name = "users")
+@Table(name = "transaction_documents")
 @EntityListeners(AuditingEntityListener.class)
 @JsonIgnoreProperties(value = {"createdAt", "updatedAt"}, allowGetters = true)
-public class User implements Serializable {
-
+public class TransactionDocument {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
     @Column(nullable = false)
-    private String name;
-
     @NotBlank
-    @Column(nullable = false, length = 15)
-    private String mobile;
+    private String imagePath;
+
+    @Column(nullable = false)
+    private Boolean isDeleted = false;
 
     @ManyToOne
-    @JoinColumn(name = "domain_id", nullable = false)
-    private Domain domain;
+    @JoinColumn(name = "transaction_id", nullable = false)
+    private Transaction transaction;
 
     @Column(nullable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
@@ -50,28 +48,28 @@ public class User implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getImagePath() {
+        return imagePath;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 
-    public String getMobile() {
-        return mobile;
+    public Boolean getDeleted() {
+        return isDeleted;
     }
 
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
+    public void setDeleted(Boolean deleted) {
+        isDeleted = deleted;
     }
 
-    public Domain getDomain() {
-        return domain;
+    public Transaction getTransaction() {
+        return transaction;
     }
 
-    public void setDomain(Domain domain) {
-        this.domain = domain;
+    public void setTransaction(Transaction transaction) {
+        this.transaction = transaction;
     }
 
     public Date getCreatedAt() {

@@ -1,36 +1,35 @@
 package com.settlement.demo.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.Type;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@Table(name = "users")
+@Table(name = "payment_vendors")
 @EntityListeners(AuditingEntityListener.class)
 @JsonIgnoreProperties(value = {"createdAt", "updatedAt"}, allowGetters = true)
-public class User implements Serializable {
+public class PaymentVendor {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false, unique = true)
     @NotBlank
-    @Column(nullable = false)
     private String name;
 
-    @NotBlank
-    @Column(nullable = false, length = 15)
-    private String mobile;
+    @Column(columnDefinition = "TEXT", nullable = false)
+    private String attributes;
 
-    @ManyToOne
-    @JoinColumn(name = "domain_id", nullable = false)
-    private Domain domain;
+
+    @Column(nullable = false, columnDefinition = "boolean default false")
+    private Boolean isActive = false;
 
     @Column(nullable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
@@ -58,20 +57,20 @@ public class User implements Serializable {
         this.name = name;
     }
 
-    public String getMobile() {
-        return mobile;
+    public String getAttributes() {
+        return attributes;
     }
 
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
+    public void setAttributes(String attributes) {
+        this.attributes = attributes;
     }
 
-    public Domain getDomain() {
-        return domain;
+    public Boolean getActive() {
+        return isActive;
     }
 
-    public void setDomain(Domain domain) {
-        this.domain = domain;
+    public void setActive(Boolean active) {
+        isActive = active;
     }
 
     public Date getCreatedAt() {
