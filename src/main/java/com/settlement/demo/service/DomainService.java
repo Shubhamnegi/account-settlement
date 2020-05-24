@@ -22,8 +22,9 @@ public class DomainService {
         return domainRepository.findAll();
     }
 
+    @Transactional(readOnly = true)
     public Domain findDomainByDomainId(Long domainId) {
-        return domainRepository.getOne(domainId);
+        return domainRepository.findById(domainId).orElse(null);
     }
 
     @Transactional

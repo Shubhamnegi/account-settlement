@@ -1,9 +1,7 @@
 package com.settlement.demo;
 
 import com.settlement.demo.enums.FlowType;
-import com.settlement.demo.model.Domain;
 import com.settlement.demo.model.Transaction;
-import com.settlement.demo.model.User;
 import com.settlement.demo.service.DomainService;
 import com.settlement.demo.service.TransactionService;
 import com.settlement.demo.service.UserService;
@@ -54,22 +52,9 @@ public class TransactionTests {
 
     @Test
     @Order(1)
-    void testSaveTransaction() {
-        Domain d = domainService.findDomainByDomainId(1L);
-        User u = userService.findUserByDomainAndMobile(1L, "+919560254331");
-
-        Transaction t = new Transaction();
-        t.setDomain(d);
-        t.setAmount(10);
-        t.setFlowType(FlowType.DEBITED);
-        t.setUser(u);
-        t.setClosingBalance(-10);
-        t.setPaymentId(null);
-        t.setComments("Test Transaction");
-
-        Transaction newT = transactionService.saveTransaction(t);
+    void testSaveTransaction() throws Exception {
+        Transaction newT = transactionService.saveTransaction(1L, 1L, 10d, FlowType.DEBITED, "Test Transaction", "");
         assert newT.getId() != null;
-
     }
 
 }

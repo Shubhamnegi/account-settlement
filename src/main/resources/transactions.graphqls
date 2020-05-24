@@ -1,7 +1,6 @@
 type Admin {
     id: ID!,
     email: String,
-    password: String,
     mobile: String,
     isActive: Boolean,
     isVerified: Boolean,
@@ -51,18 +50,18 @@ type Transaction {
 }
 
 type Query {
-#    domain(id: ID): Domain
-#    domains(limit: Int, offset:Int): [Domain]
+    domain(id: ID!): Domain
+    domains(limit: Int, offset:Int): [Domain]
 
     user(domainId: ID!, mobile: String!):User
-#    userByDomain(domainId:ID!): [User]
+    usersByDomain(domainId:ID!): [User]
 
-#    transaction(id: ID!): Transaction
-#    transactionsByDomain(id:ID!): [Transaction]
-#    transactionByDomainAndUser(domainId:Int!, userId:ID!): [Transaction]
+    transaction(id: ID!): Transaction
+    transactions(domainId:Int, userId:ID): [Transaction]
 }
 
 type Mutation {
-#    createDomain(adminId:Int!, name:String!, isActive:Boolean!):Domain
-    createUser(name:String, mobile:String, domainId:ID):User
+    createDomain(name:String!,adminId:ID!, isActive:Boolean!):Domain
+    createUser(name:String!, mobile:String!, domainId:ID!):User
+    createTransaction(domainId:ID!, userId:ID!, amount:Float!, flowType:String!, comments:String, paymentId:String): Transaction
 }

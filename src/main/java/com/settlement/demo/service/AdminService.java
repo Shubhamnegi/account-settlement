@@ -20,6 +20,10 @@ public class AdminService {
         return this.adminRepository.save(admin);
     }
 
+    public Admin findAdminByAdminId(Long id) {
+        return this.adminRepository.findById(id).orElse(null);
+    }
+
     public List<Admin> findAllAdmin() {
         return this.adminRepository.findAll();
     }
